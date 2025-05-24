@@ -14,20 +14,20 @@
 - RequestBody
   ```
   {
-    "username" : "이재륜"
-    "password" : "qwer1234"
-    "title" : "일정1"
+    "username" : "이재륜",
+    "password" : "qwer1234",
+    "title" : "일정1",
     "task" : "데베시숙제하기"
   }
 
 - ResponseBody
   ```
   {
-    "id" : 1
-    "username" : "이재륜"
-    "title" : "일정1"
-    "task" : "데베시숙제하기"
-    "createdAt" : "2025-05-24 14:30:00"
+    "id" : 1,
+    "username" : "이재륜",
+    "title" : "일정1",
+    "task" : "데베시숙제하기",
+    "createdAt" : "2025-05-24 14:30:00",
     "modifiedAt" : "2025-05-25 14:30:00"
   }
 
