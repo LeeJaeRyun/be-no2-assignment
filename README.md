@@ -119,9 +119,5 @@
 
 
 ## ERD 설계
-![image](https://github.com/user-attachments/assets/e0022672-c117-4ebc-b8eb-39a98c97aa96)
-
-
-
-
+![image](https://github.com/user-attachments/assets/39630885-e602-45ae-9972-499ac9141f34)
 
