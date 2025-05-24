@@ -1,5 +1,6 @@
 # 카카오 테크 캠퍼스 1단계 2차 과제
 
+
 ## API 명세서
 | 기능 | Method | URL | request | response | status code |
 |------|--------|-----|---------|----------|-------------|
@@ -8,6 +9,7 @@
 | 단건 일정 조회 | GET | /api/schedules/{id} | 요청 param | 단건 일정 정보 | 200 OK |
 | 일정 수정 | PATCH | /api/schedules/{id} | 요청 body | 수정된 일정 정보 | 200 OK |
 | 일정 삭제 | DELETE | /api/schedules/{id} | 요청 body | - | 200 OK |
+
 
 ## API 상세 명세서 
 ### 1. 일정 생성 [POST]
@@ -113,4 +115,13 @@
   {
     "password" : "1q2w3e4r!"
   }
+
+
+
+## ERD 설계
+![image](https://github.com/user-attachments/assets/e0022672-c117-4ebc-b8eb-39a98c97aa96)
+
+
+
+
 
