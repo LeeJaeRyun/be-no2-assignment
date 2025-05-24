@@ -7,7 +7,7 @@
 | 전체 일정 조회 | GET | /api/schedules | 요청 param | 다건 일정 정보 | 200 OK |
 | 단건 일정 조회 | GET | /api/schedules/{id} | 요청 param | 단건 일정 정보 | 200 OK |
 | 일정 수정 | PATCH | /api/schedules/{id} | 요청 body | 수정된 일정 정보 | 200 OK |
-| 일정 삭제 | DELETE | /api/schedules/{id} | 요청 param | - | 200 OK |
+| 일정 삭제 | DELETE | /api/schedules/{id} | 요청 body | - | 200 OK |
 
 ## API 상세 명세서 
 ### 1. 일정 생성 [POST]
