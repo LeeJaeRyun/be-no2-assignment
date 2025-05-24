@@ -11,7 +11,7 @@
 | 일정 삭제 | DELETE | /api/schedules/{id} | 요청 body | - | 200 OK |
 
 
-## API 상세 명세서 
+## API 상세 명세서
 ### 1. 일정 생성 [POST]
 - RequestBody
   ```
@@ -35,8 +35,8 @@
 
 ### 2. 전체 일정 조회 [GET]
 - RequestParam
-  - modifiedAt : "2025-05-24"
-  - username : "이재륜"
+    - modifiedAt : "2025-05-24"
+    - username : "이재륜"
 
 - ResponseBody
   ```
@@ -69,8 +69,8 @@
 
 ### 3. 단건 일정 조회 [GET]
 - PathVariable
-  - id : 1
-    
+    - id : 1
+
 - ResponseBody
   ```
   {
@@ -81,11 +81,11 @@
     "createdAt" : "2025-05-20 10:00:00",
     "modifiedAt" : "2025-05-24 11:30:00"
   }
-  
+
 ### 4. 일정 수정 [PATCH]
 - PathVariable
-  - id : 1
-    
+    - id : 1
+
 - RequestBody
   ```
   {
@@ -108,8 +108,8 @@
     
 ### 5. 일정 삭제 [DELETE]
 - PathVariable
-  - id : 2
-    
+    - id : 2
+
 - RequestBody
   ```
   {
