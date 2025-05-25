@@ -120,4 +120,17 @@
 ### lv3 이후
 ![image](https://github.com/user-attachments/assets/3d545f0a-952b-495f-99f3-6f109c964d49)
 
+## CHECK
+### 1. 적절한 관심사 분리를 적용하셨나요? (Controller, Service, Repository)
+http요청을 받고 dto로 변환해서 service계층에 넘기고 반환받은걸 응답해주는 controller
+controller로부터 받은 데이터로 비즈니스 로직을 처리해주는 service
+DB와 직접적인 접근을하는 repository 로 적절하게 분리한것같다.
 
+### 2. RESTful한 API를 설계하셨나요? 어떤 부분이 그런가요? 어떤 부분이 그렇지 않나요?
+생성,조회,수정,삭제 즉 http메서드의 의미를 파악하고 사용하였고 명사 기반의 URI를 사용하였고
+상태코드를 사용하였으며 json기반의 요청/응답을 사용하였습니다.
+
+### 3. 수정, 삭제 API의 request를 어떤 방식으로 사용 하셨나요? (param, query, body)
+수정의 경우에는 pathvariable로 id를 전달하고 RequestBody로 객체를 전달하였음
+삭제의 경우도 똑같이 pathvariable로 id를 전달하고 RequestBody로 객체를 전달하였음. 
+삭제의 경우에 비밀번호 하나만 RequestBody에 담았는데 직접 노출되는 방식인 param이나 pathvariable보다 보안상 안전할 것 같다고 생각했음.
