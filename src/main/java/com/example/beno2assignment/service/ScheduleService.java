@@ -1,11 +1,14 @@
 package com.example.beno2assignment.service;
 
+import com.example.beno2assignment.dto.ScheduleDeleteRequestDto;
 import com.example.beno2assignment.dto.ScheduleResponseDto;
+import com.example.beno2assignment.dto.ScheduleUpdateRequestDto;
 import com.example.beno2assignment.entity.Schedule;
 import com.example.beno2assignment.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
@@ -17,6 +20,7 @@ import java.util.Optional;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+
 
     /**
      * 일정 저장 비즈니스 로직
@@ -78,5 +82,60 @@ public class ScheduleService {
         List<Schedule> schedules = scheduleRepository.findByUsernameAndUpdatedAt(username, updatedAt);
         return schedules.stream().map(ScheduleResponseDto::new).toList();
     }
+
+    @Transactional
+    public ScheduleResponseDto update(Long id, ScheduleUpdateRequestDto requestDto) {
+        // 일정 존재 여부 확인 및 조회
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "일정이 존재하지 않습니다."));
+
+        // 비밀번호 인증
+        if (!schedule.getPassword().equals(requestDto.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+        }
+
+        // 수정할 내용이 있는지 확인
+        if (requestDto.getContent() == null && requestDto.getUsername() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정할 내용이 없습니다.");
+        }
+
+        // 일정 수정
+        Optional<Schedule> updatedSchedule = Optional.of(schedule);
+
+        if (requestDto.getContent() != null) {
+            updatedSchedule = scheduleRepository.updateContentById(id, requestDto.getContent());
+            if (updatedSchedule.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "일정 내용 수정에 실패했습니다!");
+            }
+        }
+
+        if (requestDto.getUsername() != null) {
+            updatedSchedule = scheduleRepository.updateUsernameById(id, requestDto.getUsername());
+            if (updatedSchedule.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "사용자 이름 수정에 실패했습니다!");
+            }
+        }
+
+        return new ScheduleResponseDto(updatedSchedule.get());
+    }
+
+    @Transactional
+    public void delete(Long id, ScheduleDeleteRequestDto requestDto) {
+        // 일정 존재 여부 확인 및 조회
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "일정이 존재하지 않습니다."));
+
+        // 비밀번호 인증
+        if (!schedule.getPassword().equals(requestDto.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+        }
+
+        // 삭제 시도
+        boolean deleted = scheduleRepository.deleteUserById(id);
+        if (!deleted) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정 삭제에 실패했습니다.");
+        }
+    }
+
 
 }

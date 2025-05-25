@@ -28,6 +28,7 @@ public class ScheduleDao { // 실제 DB 쿼리 실행을 담당하는 DAO 클래
             schedule.setId(rs.getLong("id"));
             schedule.setContent(rs.getString("content"));
             schedule.setUsername(rs.getString("username"));
+            schedule.setPassword(rs.getString("password"));
             schedule.setCreatedAt(rs.getDate("created_at").toLocalDate()); // java.sql.Date → java.time.LocalDate
             schedule.setUpdatedAt(rs.getDate("updated_at").toLocalDate());
             return schedule;

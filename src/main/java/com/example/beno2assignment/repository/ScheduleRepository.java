@@ -78,4 +78,40 @@ public class ScheduleRepository {
                                 schedule.getUpdatedAt().equals(updatedAt)
                 ).toList();
     }
+
+    /**
+     * ID로 일정의 content를 수정
+     * 성공 시 수정된 Schedule 반환, 실패 시 Optional.empty()
+     */
+    @Transactional
+    public Optional<Schedule> updateContentById(Long id, String content) {
+        int updatedRows = scheduleDao.updateContentById(id, content);
+        if (updatedRows > 0) {
+            return Optional.ofNullable(scheduleDao.findById(id));
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * ID로 일정의 username을 수정
+     * 성공 시 수정된 Schedule 반환, 실패 시 Optional.empty()
+     */
+    @Transactional
+    public Optional<Schedule> updateUsernameById(Long id, String username) {
+        int updatedRows = scheduleDao.updateUsernameById(id, username);
+        if (updatedRows > 0) {
+            return Optional.ofNullable(scheduleDao.findById(id));
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * ID로 일정 삭제
+     * 성공 시 true, 실패 시 false 반환
+     */
+    public boolean deleteUserById(Long id) {
+        return (scheduleDao.deleteById(id) > 0);
+    }
+
+
 }

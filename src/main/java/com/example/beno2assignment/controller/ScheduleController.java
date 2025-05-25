@@ -1,7 +1,9 @@
 package com.example.beno2assignment.controller;
 
 import com.example.beno2assignment.dto.ScheduleCreateRequestDto;
+import com.example.beno2assignment.dto.ScheduleDeleteRequestDto;
 import com.example.beno2assignment.dto.ScheduleResponseDto;
+import com.example.beno2assignment.dto.ScheduleUpdateRequestDto;
 import com.example.beno2assignment.entity.Schedule;
 import com.example.beno2assignment.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +32,10 @@ public class ScheduleController {
 
     // 전체 일정 조회
     @GetMapping
-    public ResponseEntity<List<ScheduleResponseDto>> findAll(@RequestParam(required = false) String username, @RequestParam(required = false) String updatedAt) {
+    public ResponseEntity<List<ScheduleResponseDto>> findAll(
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) String updatedAt) {
+
         if (username == null && updatedAt == null) {
             List<ScheduleResponseDto> responseDto = scheduleService.findAll();
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
@@ -44,6 +49,7 @@ public class ScheduleController {
             List<ScheduleResponseDto> responseDto = scheduleService.findByUsernameAndUpdatedAt(username, LocalDate.parse(updatedAt));
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         }
+
     }
 
     //일정 하나만 조회
@@ -52,6 +58,25 @@ public class ScheduleController {
         ScheduleResponseDto responseDto = scheduleService.findById(id);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+    //일정 수정
+    @PatchMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> updateSchedule(
+            @PathVariable Long id,
+            @RequestBody ScheduleUpdateRequestDto requestDto) {
+        ScheduleResponseDto responseDto = scheduleService.update(id, requestDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    //일정 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSchedule(
+            @PathVariable Long id,
+            @RequestBody ScheduleDeleteRequestDto requestDto) {
+        scheduleService.delete(id, requestDto);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 
 }
